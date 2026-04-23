@@ -65,6 +65,7 @@ def build():
 
     header {{
       margin-bottom: 2.5rem;
+      text-align: center;
     }}
 
     header h1 {{
@@ -79,11 +80,6 @@ def build():
       font-size: 0.95rem;
     }}
 
-    header p + p {{
-      margin-top: 0.25rem;
-      font-size: 0.85rem;
-      opacity: 0.75;
-    }}
 
     .gallery {{
       display: flex;
@@ -117,8 +113,7 @@ def build():
 <body>
   <header>
     <h1>Old Houses on Film</h1>
-    <p>Taken on a Minolta X-700</p>
-    <p>Photos by Amanda Miller</p>
+    <p>Taken by Amanda Miller &bull; Minolta X-700</p>
   </header>
   <main class="gallery">
 {chr(10).join(photo_items)}
