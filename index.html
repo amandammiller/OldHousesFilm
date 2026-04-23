@@ -34,6 +34,12 @@
       font-size: 0.95rem;
     }
 
+    header p + p {
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
     .gallery {
       display: flex;
       flex-direction: column;
@@ -43,6 +49,10 @@
     figure {
       display: flex;
       flex-direction: column;
+    }
+
+    figure.portrait {
+      max-width: 420px;
     }
 
     figure img {
@@ -62,121 +72,122 @@
   <header>
     <h1>Old Houses on Film</h1>
     <p>Taken on a Minolta X-700</p>
+    <p>Photos by Amanda Miller</p>
   </header>
   <main class="gallery">
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/01--04.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/01--07.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/01--08.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/01--09.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Cotswolds%2C%20England/01--10.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/02--2.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/03--1.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Cotswolds%2C%20England/03--3.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Cotswolds%2C%20England/03--5.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00950007.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00950010.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00950011.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Nantucket%2C%20Massachusetts/00950013.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00950014.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Nantucket%2C%20Massachusetts/00950015.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Nantucket%2C%20Massachusetts/00950020.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00950027.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Nantucket%2C%20Massachusetts/00950033.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="portrait">
       <img src="Images/Nantucket%2C%20Massachusetts/00950034.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Nantucket%2C%20Massachusetts/00960035.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Suffield%2C%20Connecticut/00960005.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Suffield%2C%20Connecticut/05180017.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Suffield%2C%20Connecticut/05180018.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Suffield%2C%20Connecticut/05180021.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Wiscasset%2C%20Maine/00300017.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Wiscasset%2C%20Maine/00300024.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Wiscasset%2C%20Maine/00300027.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Wiscasset%2C%20Maine/00300030.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
-    <figure>
+    <figure class="landscape">
       <img src="Images/Wiscasset%2C%20Maine/00300031.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>

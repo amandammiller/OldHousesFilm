@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: pip3 install Pillow
+
       - name: Build site
         run: python3 build.py
 

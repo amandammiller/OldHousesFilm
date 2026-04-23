@@ -3,6 +3,7 @@
 
 import os
 import urllib.parse
+from PIL import Image
 
 IMAGES_DIR = "Images"
 OUTPUT = "index.html"
@@ -30,9 +31,13 @@ def build():
     photo_items = []
     for location, photos in locations:
         for photo in photos:
+            path = os.path.join(IMAGES_DIR, location, photo)
             src = f"{IMAGES_DIR}/{urllib.parse.quote(location)}/{urllib.parse.quote(photo)}"
+            with Image.open(path) as img:
+                w, h = img.size
+            orientation = "portrait" if h > w else "landscape"
             photo_items.append(
-                f'    <figure>\n'
+                f'    <figure class="{orientation}">\n'
                 f'      <img src="{src}" alt="{location}" loading="lazy">\n'
                 f'      <figcaption>{location}</figcaption>\n'
                 f'    </figure>'
@@ -74,6 +79,12 @@ def build():
       font-size: 0.95rem;
     }}
 
+    header p + p {{
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }}
+
     .gallery {{
       display: flex;
       flex-direction: column;
@@ -83,6 +94,10 @@ def build():
     figure {{
       display: flex;
       flex-direction: column;
+    }}
+
+    figure.portrait {{
+      max-width: 420px;
     }}
 
     figure img {{
@@ -102,6 +117,7 @@ def build():
   <header>
     <h1>Old Houses on Film</h1>
     <p>Taken on a Minolta X-700</p>
+    <p>Photos by Amanda Miller</p>
   </header>
   <main class="gallery">
 {chr(10).join(photo_items)}
