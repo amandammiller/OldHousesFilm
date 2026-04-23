@@ -44,12 +44,16 @@ def build():
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Old Houses on Film</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
     body {{
-      font-family: sans-serif;
-      max-width: 1200px;
+      background-color: #FAFFEF;
+      color: rgb(24, 54, 107);
+      max-width: 720px;
       margin: 0 auto;
       padding: 2rem 1rem;
     }}
@@ -59,19 +63,21 @@ def build():
     }}
 
     header h1 {{
-      font-size: 2rem;
+      font-family: 'EB Garamond', Garamond, serif;
+      font-size: 2.4rem;
+      font-weight: 500;
       margin-bottom: 0.4rem;
     }}
 
     header p {{
-      font-size: 1rem;
-      color: #555;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
     }}
 
     .gallery {{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
     }}
 
     figure {{
@@ -86,9 +92,9 @@ def build():
     }}
 
     figcaption {{
-      margin-top: 0.4rem;
+      font-family: 'Inter', sans-serif;
+      margin-top: 0.5rem;
       font-size: 0.85rem;
-      color: #444;
     }}
   </style>
 </head>
