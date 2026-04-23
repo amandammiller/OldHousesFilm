@@ -58,7 +58,7 @@ def build():
     body {{
       background-color: #FAFFEF;
       color: rgb(24, 54, 107);
-      max-width: 720px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 2rem 1rem;
     }}
@@ -94,10 +94,11 @@ def build():
     figure {{
       display: flex;
       flex-direction: column;
+      margin: 0 auto;
     }}
 
     figure.portrait {{
-      max-width: 420px;
+      max-width: 525px;
     }}
 
     figure img {{

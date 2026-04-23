@@ -3,7 +3,17 @@
     "allow": [
       "Bash(python3 build.py)",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(gh auth *)",
+      "Bash(/opt/homebrew/bin/gh auth *)",
+      "Bash(/opt/homebrew/bin/gh repo *)",
+      "Bash(git commit -m ' *)",
+      "Bash(/opt/homebrew/bin/gh run *)",
+      "Bash(/opt/homebrew/bin/gh workflow *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(python3 -c \"from PIL import Image; print\\('ok'\\)\")",
+      "Bash(pip3 install *)"
     ]
   }
 }
