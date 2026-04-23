@@ -55,12 +55,39 @@ def build():
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
+    :root {{
+      --bg: #FAFFEF;
+      --fg: rgb(24, 54, 107);
+      --fg-muted: rgba(24, 54, 107, 0.65);
+      --toggle-bg: rgba(24, 54, 107, 0.1);
+      --toggle-hover: rgba(24, 54, 107, 0.2);
+    }}
+
+    @media (prefers-color-scheme: dark) {{
+      :root:not([data-theme="light"]) {{
+        --bg: #0f1f3d;
+        --fg: #FAFFEF;
+        --fg-muted: rgba(250, 255, 239, 0.6);
+        --toggle-bg: rgba(250, 255, 239, 0.1);
+        --toggle-hover: rgba(250, 255, 239, 0.2);
+      }}
+    }}
+
+    :root[data-theme="dark"] {{
+      --bg: #0f1f3d;
+      --fg: #FAFFEF;
+      --fg-muted: rgba(250, 255, 239, 0.6);
+      --toggle-bg: rgba(250, 255, 239, 0.1);
+      --toggle-hover: rgba(250, 255, 239, 0.2);
+    }}
+
     body {{
-      background-color: #FAFFEF;
-      color: rgb(24, 54, 107);
+      background-color: var(--bg);
+      color: var(--fg);
       max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 5rem;
+      transition: background-color 0.3s, color 0.3s;
     }}
 
     header {{
@@ -78,8 +105,8 @@ def build():
     header p {{
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
+      color: var(--fg-muted);
     }}
-
 
     .gallery {{
       display: flex;
@@ -107,6 +134,29 @@ def build():
       font-family: 'Inter', sans-serif;
       margin-top: 0.5rem;
       font-size: 0.85rem;
+      color: var(--fg-muted);
+    }}
+
+    #theme-toggle {{
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      border: none;
+      background: var(--toggle-bg);
+      color: var(--fg);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }}
+
+    #theme-toggle:hover {{
+      background: var(--toggle-hover);
     }}
   </style>
 </head>
@@ -118,6 +168,35 @@ def build():
   <main class="gallery">
 {chr(10).join(photo_items)}
   </main>
+
+  <button id="theme-toggle" aria-label="Toggle dark mode"></button>
+
+  <script>
+    const root = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    const ICONS = {{ light: '☀️', dark: '🌙' }};
+
+    function isDark() {{
+      if (root.dataset.theme) return root.dataset.theme === 'dark';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }}
+
+    function applyTheme(dark) {{
+      root.dataset.theme = dark ? 'dark' : 'light';
+      btn.textContent = dark ? ICONS.light : ICONS.dark;
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }}
+
+    // Restore saved preference
+    const saved = localStorage.getItem('theme');
+    if (saved) {{
+      applyTheme(saved === 'dark');
+    }} else {{
+      btn.textContent = isDark() ? ICONS.light : ICONS.dark;
+    }}
+
+    btn.addEventListener('click', () => applyTheme(!isDark()));
+  </script>
 </body>
 </html>
 """
