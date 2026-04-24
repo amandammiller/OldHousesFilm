@@ -248,7 +248,7 @@ def build():
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
       color: #4F74B5;
-      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
       user-select: none;
     }}
 
