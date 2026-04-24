@@ -27,6 +27,7 @@ def get_locations():
 
 def build():
     locations = get_locations()
+    location_names = [name for name, _ in locations]
 
     photo_items = []
     for location, photos in locations:
@@ -37,11 +38,21 @@ def build():
                 w, h = img.size
             orientation = "portrait" if h > w else "landscape"
             photo_items.append(
-                f'    <figure class="{orientation}">\n'
+                f'    <figure class="{orientation}" data-location="{location}">\n'
                 f'      <img src="{src}" alt="{location}" loading="lazy">\n'
                 f'      <figcaption>{location}</figcaption>\n'
                 f'    </figure>'
             )
+
+    side_nav_buttons = '\n'.join(
+        f'    <button data-filter="{name}">{name.lower()}</button>'
+        for name in location_names
+    )
+
+    dropdown_options = '\n'.join(
+        f'        <option value="{name}">{name.lower()}</option>'
+        for name in location_names
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -53,16 +64,15 @@ def build():
   <link rel="icon" type="image/png" href="Images/Favicon_dark.png" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300;400&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
     :root {{
       --bg: #FAFFEF;
       --fg: rgb(24, 54, 107);
-      --fg-muted: rgba(24, 54, 107, 0.65);
-      --toggle-bg: rgba(24, 54, 107, 0.1);
-      --toggle-hover: rgba(24, 54, 107, 0.2);
+      --fg-muted: rgba(24, 54, 107, 0.55);
+      --accent: #4F74B5;
     }}
 
     @media (prefers-color-scheme: dark) {{
@@ -70,8 +80,6 @@ def build():
         --bg: #0f1f3d;
         --fg: #FAFFEF;
         --fg-muted: rgba(250, 255, 239, 0.6);
-        --toggle-bg: rgba(250, 255, 239, 0.1);
-        --toggle-hover: rgba(250, 255, 239, 0.2);
       }}
     }}
 
@@ -79,8 +87,6 @@ def build():
       --bg: #0f1f3d;
       --fg: #FAFFEF;
       --fg-muted: rgba(250, 255, 239, 0.6);
-      --toggle-bg: rgba(250, 255, 239, 0.1);
-      --toggle-hover: rgba(250, 255, 239, 0.2);
     }}
 
     body {{
@@ -93,7 +99,7 @@ def build():
     }}
 
     header {{
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
     }}
 
@@ -111,6 +117,68 @@ def build():
       color: var(--fg-muted);
     }}
 
+    /* ── Mobile/tablet dropdown ── */
+    .mobile-nav {{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }}
+
+    .mobile-nav select {{
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      padding: 0.4rem 2.2rem 0.4rem 1.1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234F74B5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      cursor: pointer;
+    }}
+
+    /* ── Desktop floating left nav ── */
+    .side-nav {{
+      display: none;
+      position: fixed;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }}
+
+    .side-nav button {{
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      text-align: left;
+      white-space: nowrap;
+      transition: color 0.15s, background 0.15s;
+    }}
+
+    .side-nav button:hover {{ color: var(--fg); }}
+
+    .side-nav button.active {{
+      background: var(--accent);
+      color: #FAFFEF;
+    }}
+
+    @media (min-width: 1160px) {{
+      .side-nav {{ display: flex; }}
+      .mobile-nav {{ display: none; }}
+    }}
+
+    /* ── Gallery ── */
     .gallery {{
       display: flex;
       flex-direction: column;
@@ -123,15 +191,15 @@ def build():
       margin: 0 auto;
     }}
 
-    figure.portrait {{
-      max-width: 525px;
-    }}
+    figure.portrait {{ max-width: 525px; }}
 
     figure img {{
       width: 100%;
       height: auto;
       display: block;
     }}
+
+    figure[hidden] {{ display: none; }}
 
     figcaption {{
       font-family: 'Inter', sans-serif;
@@ -140,6 +208,7 @@ def build():
       color: var(--fg-muted);
     }}
 
+    /* ── Theme toggle ── */
     #theme-toggle {{
       position: fixed;
       bottom: 1.5rem;
@@ -147,7 +216,7 @@ def build():
       display: flex;
       align-items: center;
       background: #FAFFEF;
-      border: 1.5px solid var(--fg-muted);
+      border: 1.5px solid #4F74B5;
       border-radius: 999px;
       padding: 3px;
       gap: 2px;
@@ -171,10 +240,24 @@ def build():
   </style>
 </head>
 <body>
+
+  <nav class="side-nav" aria-label="Filter by location">
+    <button class="active" data-filter="all">all</button>
+{side_nav_buttons}
+  </nav>
+
   <header>
     <h1>Old Houses on Film</h1>
     <p>photos by Amanda Miller ✳ Minolta X-700</p>
   </header>
+
+  <div class="mobile-nav">
+    <select id="location-select" aria-label="Filter by location">
+      <option value="all">all locations</option>
+{dropdown_options}
+    </select>
+  </div>
+
   <main class="gallery">
 {chr(10).join(photo_items)}
   </main>
@@ -185,9 +268,10 @@ def build():
   </div>
 
   <script>
+    // ── Theme ──
     const root = document.documentElement;
     const optLight = document.getElementById('opt-light');
-    const optDark = document.getElementById('opt-dark');
+    const optDark  = document.getElementById('opt-dark');
 
     function isDark() {{
       if (root.dataset.theme) return root.dataset.theme === 'dark';
@@ -205,7 +289,35 @@ def build():
     applyTheme(saved ? saved === 'dark' : isDark());
 
     optLight.addEventListener('click', () => applyTheme(false));
-    optDark.addEventListener('click', () => applyTheme(true));
+    optDark.addEventListener('click',  () => applyTheme(true));
+
+    // ── Filter ──
+    const figures = Array.from(document.querySelectorAll('.gallery figure'));
+
+    function filter(value) {{
+      figures.forEach(fig => {{
+        fig.hidden = value !== 'all' && fig.dataset.location !== value;
+      }});
+    }}
+
+    // Side nav
+    document.querySelectorAll('.side-nav button').forEach(btn => {{
+      btn.addEventListener('click', () => {{
+        document.querySelectorAll('.side-nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('location-select').value = btn.dataset.filter;
+        filter(btn.dataset.filter);
+      }});
+    }});
+
+    // Dropdown
+    document.getElementById('location-select').addEventListener('change', e => {{
+      const val = e.target.value;
+      document.querySelectorAll('.side-nav button').forEach(b => {{
+        b.classList.toggle('active', b.dataset.filter === val);
+      }});
+      filter(val);
+    }});
   </script>
 </body>
 </html>

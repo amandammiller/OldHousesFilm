@@ -8,16 +8,15 @@
   <link rel="icon" type="image/png" href="Images/Favicon_dark.png" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@300;400&family=Inter:wght@400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #FAFFEF;
       --fg: rgb(24, 54, 107);
-      --fg-muted: rgba(24, 54, 107, 0.65);
-      --toggle-bg: rgba(24, 54, 107, 0.1);
-      --toggle-hover: rgba(24, 54, 107, 0.2);
+      --fg-muted: rgba(24, 54, 107, 0.55);
+      --accent: #4F74B5;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -25,8 +24,6 @@
         --bg: #0f1f3d;
         --fg: #FAFFEF;
         --fg-muted: rgba(250, 255, 239, 0.6);
-        --toggle-bg: rgba(250, 255, 239, 0.1);
-        --toggle-hover: rgba(250, 255, 239, 0.2);
       }
     }
 
@@ -34,8 +31,6 @@
       --bg: #0f1f3d;
       --fg: #FAFFEF;
       --fg-muted: rgba(250, 255, 239, 0.6);
-      --toggle-bg: rgba(250, 255, 239, 0.1);
-      --toggle-hover: rgba(250, 255, 239, 0.2);
     }
 
     body {
@@ -48,7 +43,7 @@
     }
 
     header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
 
@@ -66,6 +61,68 @@
       color: var(--fg-muted);
     }
 
+    /* ── Mobile/tablet dropdown ── */
+    .mobile-nav {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-nav select {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--fg);
+      background: var(--bg);
+      border: 1.5px solid var(--accent);
+      border-radius: 999px;
+      padding: 0.4rem 2.2rem 0.4rem 1.1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234F74B5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      cursor: pointer;
+    }
+
+    /* ── Desktop floating left nav ── */
+    .side-nav {
+      display: none;
+      position: fixed;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+
+    .side-nav button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      background: none;
+      border: none;
+      color: var(--fg-muted);
+      cursor: pointer;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      text-align: left;
+      white-space: nowrap;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .side-nav button:hover { color: var(--fg); }
+
+    .side-nav button.active {
+      background: var(--accent);
+      color: #FAFFEF;
+    }
+
+    @media (min-width: 1160px) {
+      .side-nav { display: flex; }
+      .mobile-nav { display: none; }
+    }
+
+    /* ── Gallery ── */
     .gallery {
       display: flex;
       flex-direction: column;
@@ -78,15 +135,15 @@
       margin: 0 auto;
     }
 
-    figure.portrait {
-      max-width: 525px;
-    }
+    figure.portrait { max-width: 525px; }
 
     figure img {
       width: 100%;
       height: auto;
       display: block;
     }
+
+    figure[hidden] { display: none; }
 
     figcaption {
       font-family: 'Inter', sans-serif;
@@ -95,6 +152,7 @@
       color: var(--fg-muted);
     }
 
+    /* ── Theme toggle ── */
     #theme-toggle {
       position: fixed;
       bottom: 1.5rem;
@@ -102,7 +160,7 @@
       display: flex;
       align-items: center;
       background: #FAFFEF;
-      border: 1.5px solid var(--fg-muted);
+      border: 1.5px solid #4F74B5;
       border-radius: 999px;
       padding: 3px;
       gap: 2px;
@@ -126,112 +184,132 @@
   </style>
 </head>
 <body>
+
+  <nav class="side-nav" aria-label="Filter by location">
+    <button class="active" data-filter="all">all</button>
+    <button data-filter="Cotswolds, England">cotswolds, england</button>
+    <button data-filter="Nantucket, Massachusetts">nantucket, massachusetts</button>
+    <button data-filter="Suffield, Connecticut">suffield, connecticut</button>
+    <button data-filter="Wiscasset, Maine">wiscasset, maine</button>
+  </nav>
+
   <header>
     <h1>Old Houses on Film</h1>
     <p>photos by Amanda Miller ✳ Minolta X-700</p>
   </header>
+
+  <div class="mobile-nav">
+    <select id="location-select" aria-label="Filter by location">
+      <option value="all">all locations</option>
+        <option value="Cotswolds, England">cotswolds, england</option>
+        <option value="Nantucket, Massachusetts">nantucket, massachusetts</option>
+        <option value="Suffield, Connecticut">suffield, connecticut</option>
+        <option value="Wiscasset, Maine">wiscasset, maine</option>
+    </select>
+  </div>
+
   <main class="gallery">
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/01--04.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/01--07.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/01--08.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/01--09.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/01--10.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/02--2.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/03--1.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/03--3.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Cotswolds, England">
       <img src="Images/Cotswolds%2C%20England/03--5.jpg" alt="Cotswolds, England" loading="lazy">
       <figcaption>Cotswolds, England</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950007-2.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950010.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950011.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950013.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950014-3.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950015.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950020.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950027.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950033.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="portrait">
+    <figure class="portrait" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00950034.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Nantucket, Massachusetts">
       <img src="Images/Nantucket%2C%20Massachusetts/00960035.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Suffield, Connecticut">
       <img src="Images/Suffield%2C%20Connecticut/00960005.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Suffield, Connecticut">
       <img src="Images/Suffield%2C%20Connecticut/05180017.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Suffield, Connecticut">
       <img src="Images/Suffield%2C%20Connecticut/05180018.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Suffield, Connecticut">
       <img src="Images/Suffield%2C%20Connecticut/05180021.jpg" alt="Suffield, Connecticut" loading="lazy">
       <figcaption>Suffield, Connecticut</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Wiscasset, Maine">
       <img src="Images/Wiscasset%2C%20Maine/00300017-2.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
-    <figure class="landscape">
+    <figure class="landscape" data-location="Wiscasset, Maine">
       <img src="Images/Wiscasset%2C%20Maine/00300024-2.jpg" alt="Wiscasset, Maine" loading="lazy">
       <figcaption>Wiscasset, Maine</figcaption>
     </figure>
@@ -243,9 +321,10 @@
   </div>
 
   <script>
+    // ── Theme ──
     const root = document.documentElement;
     const optLight = document.getElementById('opt-light');
-    const optDark = document.getElementById('opt-dark');
+    const optDark  = document.getElementById('opt-dark');
 
     function isDark() {
       if (root.dataset.theme) return root.dataset.theme === 'dark';
@@ -263,7 +342,35 @@
     applyTheme(saved ? saved === 'dark' : isDark());
 
     optLight.addEventListener('click', () => applyTheme(false));
-    optDark.addEventListener('click', () => applyTheme(true));
+    optDark.addEventListener('click',  () => applyTheme(true));
+
+    // ── Filter ──
+    const figures = Array.from(document.querySelectorAll('.gallery figure'));
+
+    function filter(value) {
+      figures.forEach(fig => {
+        fig.hidden = value !== 'all' && fig.dataset.location !== value;
+      });
+    }
+
+    // Side nav
+    document.querySelectorAll('.side-nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.side-nav button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('location-select').value = btn.dataset.filter;
+        filter(btn.dataset.filter);
+      });
+    });
+
+    // Dropdown
+    document.getElementById('location-select').addEventListener('change', e => {
+      const val = e.target.value;
+      document.querySelectorAll('.side-nav button').forEach(b => {
+        b.classList.toggle('active', b.dataset.filter === val);
+      });
+      filter(val);
+    });
   </script>
 </body>
 </html>
