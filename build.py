@@ -181,7 +181,7 @@ def build():
       #theme-toggle {{ right: 0.75rem; }}
     }}
 
-    @media (min-width: 1160px) {{
+    @media (min-width: 1335px) {{
       .side-nav {{ display: flex; }}
       .mobile-nav {{ display: none; }}
     }}
@@ -203,7 +203,10 @@ def build():
       display: flex;
       flex-direction: column;
       gap: 2.5rem;
+      transition: opacity 0.25s ease-in-out;
     }}
+
+    .gallery.fading {{ opacity: 0; }}
 
     figure {{
       display: flex;
@@ -312,12 +315,17 @@ def build():
 
     // ── Filter ──
     const figures = Array.from(document.querySelectorAll('.gallery figure'));
+    const gallery = document.querySelector('.gallery');
 
     function filter(value) {{
-      figures.forEach(fig => {{
-        fig.hidden = value !== 'all' && fig.dataset.location !== value;
-      }});
-      window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      gallery.classList.add('fading');
+      setTimeout(() => {{
+        figures.forEach(fig => {{
+          fig.hidden = value !== 'all' && fig.dataset.location !== value;
+        }});
+        gallery.classList.remove('fading');
+        window.scrollTo({{ top: 0, behavior: 'smooth' }});
+      }}, 250);
     }}
 
     // Side nav
