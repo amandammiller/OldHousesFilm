@@ -74,7 +74,7 @@ def build():
     :root {{
       --bg: #FAFFEF;
       --fg: rgb(24, 54, 107);
-      --fg-muted: rgba(24, 54, 107, 0.55);
+      --fg-muted: #4F74B5;
       --accent: #4F74B5;
     }}
 
