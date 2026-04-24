@@ -144,7 +144,8 @@ def build():
     }}
 
     header {{
-      margin-bottom: 2.5rem;
+      margin-top: 4rem;
+      margin-bottom: 4rem;
       text-align: center;
     }}
 
@@ -231,6 +232,7 @@ def build():
 
     @media (max-width: 1334px) {{
       body {{ padding-left: 1.875rem; padding-right: 1.875rem; }}
+      .gallery {{ gap: 5rem; }}
       .mobile-nav select {{ height: 36px; }}
     }}
 
