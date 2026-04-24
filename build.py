@@ -139,7 +139,7 @@ def build():
       color: var(--fg);
       max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1rem 5rem;
+      padding: 0 1rem 5rem;
       transition: background-color 0.3s, color 0.3s;
     }}
 
