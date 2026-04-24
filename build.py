@@ -263,7 +263,7 @@ def build():
       align-items: center;
       background: var(--toggle-bg);
       border: 1.5px solid var(--toggle-border);
-      transition: background 0.5s ease-in-out, border-color 0.5s ease-in-out;
+      transition: background 0.3s, border-color 0.3s;
       border-radius: 999px;
       padding: 3px;
       gap: 2px;
@@ -281,7 +281,7 @@ def build():
       font-family: inherit;
       font-size: inherit;
       cursor: pointer;
-      transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+      transition: background 0.3s, color 0.3s;
       user-select: none;
     }}
 
