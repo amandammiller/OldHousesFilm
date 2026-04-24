@@ -144,7 +144,7 @@ def build():
       right: 1.5rem;
       display: flex;
       align-items: center;
-      background: var(--toggle-bg);
+      background: #FAFFEF;
       border: 1.5px solid var(--fg-muted);
       border-radius: 999px;
       padding: 3px;
