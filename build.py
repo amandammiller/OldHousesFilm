@@ -63,6 +63,13 @@ def build():
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Old Houses on Film</title>
+  <meta property="og:title" content="Old Houses on Film">
+  <meta property="og:description" content="photos by Amanda Miller · Minolta X-700">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://amandammiller.github.io/OldHousesFilm">
+  <meta property="og:image" content="https://amandammiller.github.io/OldHousesFilm/Images/Cotswolds%2C%20England/01--01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://amandammiller.github.io/OldHousesFilm/Images/Cotswolds%2C%20England/01--01.jpg">
   <link rel="icon" type="image/png" href="Images/Favicon_light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="Images/Favicon_dark.png" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
