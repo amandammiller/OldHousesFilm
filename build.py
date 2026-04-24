@@ -259,7 +259,7 @@ def build():
     .gallery {{
       display: flex;
       flex-direction: column;
-      gap: 4rem;
+      gap: 6rem;
       transition: opacity 0.15s ease-in-out;
     }}
 
