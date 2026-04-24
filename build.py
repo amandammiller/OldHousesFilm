@@ -177,7 +177,7 @@ def build():
       color: #FAFFEF;
     }}
 
-    @media (min-width: 481px) {{
+    @media (min-width: 380px) {{
       #theme-toggle {{ right: 0.75rem; }}
     }}
 
@@ -186,7 +186,7 @@ def build():
       .mobile-nav {{ display: none; }}
     }}
 
-    @media (max-width: 480px) {{
+    @media (max-width: 379px) {{
       .mobile-nav {{
         bottom: 3.5rem;
         left: 50%;
@@ -248,7 +248,7 @@ def build():
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
       color: #4F74B5;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
     }}
 
