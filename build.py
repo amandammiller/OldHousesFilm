@@ -158,14 +158,14 @@ def build():
     #theme-toggle span {{
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
-      color: var(--fg-muted);
+      color: rgb(24, 54, 107);
       transition: background 0.2s, color 0.2s;
       user-select: none;
     }}
 
     #theme-toggle span.active {{
-      background: var(--fg);
-      color: var(--bg);
+      background: rgb(24, 54, 107);
+      color: #FAFFEF;
     }}
   </style>
 </head>
