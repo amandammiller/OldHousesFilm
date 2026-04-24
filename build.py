@@ -177,6 +177,10 @@ def build():
       color: #FAFFEF;
     }}
 
+    @media (min-width: 481px) {{
+      #theme-toggle {{ right: 0.75rem; }}
+    }}
+
     @media (min-width: 1160px) {{
       .side-nav {{ display: flex; }}
       .mobile-nav {{ display: none; }}
@@ -189,8 +193,6 @@ def build():
         transform: translateX(-50%);
       }}
       #theme-toggle {{
-        bottom: 0.75rem;
-        right: auto;
         left: 50%;
         transform: translateX(-50%);
       }}
@@ -230,7 +232,6 @@ def build():
     #theme-toggle {{
       position: fixed;
       bottom: 0.75rem;
-      right: 0.75rem;
       display: flex;
       align-items: center;
       background: #FAFFEF;
