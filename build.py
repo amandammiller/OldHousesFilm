@@ -3,11 +3,33 @@
 
 import os
 import urllib.parse
-from PIL import Image
+from PIL import Image, ImageOps
 
 IMAGES_DIR = "Images"
+WEB_DIR = "Images_web"
 OUTPUT = "index.html"
 SUPPORTED = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
+MAX_W = {"landscape": 1800, "portrait": 1050}
+WEBP_QUALITY = 82
+
+
+def make_web_image(src_path, location, filename, orientation):
+    """Generate a resized WebP copy and return its URL-encoded src path."""
+    dst_dir = os.path.join(WEB_DIR, location)
+    os.makedirs(dst_dir, exist_ok=True)
+    stem = os.path.splitext(filename)[0]
+    dst_path = os.path.join(dst_dir, stem + ".webp")
+
+    if not os.path.exists(dst_path) or os.path.getmtime(src_path) > os.path.getmtime(dst_path):
+        with Image.open(src_path) as img:
+            img = ImageOps.exif_transpose(img)  # bake in rotation
+            max_w = MAX_W[orientation]
+            if img.width > max_w:
+                ratio = max_w / img.width
+                img = img.resize((max_w, int(img.height * ratio)), Image.LANCZOS)
+            img.save(dst_path, "WEBP", quality=WEBP_QUALITY)
+
+    return f"{WEB_DIR}/{urllib.parse.quote(location)}/{urllib.parse.quote(stem + '.webp')}"
 
 
 def get_locations():
@@ -33,16 +55,20 @@ def build():
     for location, photos in locations:
         for photo in photos:
             path = os.path.join(IMAGES_DIR, location, photo)
-            src = f"{IMAGES_DIR}/{urllib.parse.quote(location)}/{urllib.parse.quote(photo)}"
+            fallback_src = f"{IMAGES_DIR}/{urllib.parse.quote(location)}/{urllib.parse.quote(photo)}"
             with Image.open(path) as img:
                 w, h = img.size
                 exif_orientation = img.getexif().get(274, 1)
             if exif_orientation in (5, 6, 7, 8):
-                w, h = h, w  # rotated 90° — swap to get display dimensions
+                w, h = h, w
             orientation = "portrait" if h > w else "landscape"
+            webp_src = make_web_image(path, location, photo, orientation)
             photo_items.append(
                 f'    <figure class="{orientation}" data-location="{location}">\n'
-                f'      <img src="{src}" alt="{location}" loading="lazy">\n'
+                f'      <picture>\n'
+                f'        <source srcset="{webp_src}" type="image/webp">\n'
+                f'        <img src="{fallback_src}" alt="{location}" loading="lazy">\n'
+                f'      </picture>\n'
                 f'      <figcaption>{location}</figcaption>\n'
                 f'    </figure>'
             )
