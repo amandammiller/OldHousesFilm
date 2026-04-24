@@ -14,7 +14,8 @@
       "Bash(git push *)",
       "Bash(python3 -c \"from PIL import Image; print\\('ok'\\)\")",
       "Bash(pip3 install *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }
