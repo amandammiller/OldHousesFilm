@@ -266,7 +266,7 @@ def build():
 
   <header>
     <h1>Old Houses on Film</h1>
-    <p>photos by Amanda Miller ✳ Minolta X-700</p>
+    <p>photos by Amanda Miller ✳&#xFE0E; Minolta X-700</p>
   </header>
 
   <div class="mobile-nav">
