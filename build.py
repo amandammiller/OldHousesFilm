@@ -197,6 +197,10 @@ def build():
       #theme-toggle {{ right: 0.75rem; }}
     }}
 
+    @media (max-width: 1334px) {{
+      body {{ padding-left: 1.375rem; padding-right: 1.375rem; }}
+    }}
+
     @media (min-width: 1335px) {{
       .side-nav {{ display: flex; }}
       .mobile-nav {{ display: none; }}
