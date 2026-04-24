@@ -76,6 +76,9 @@ def build():
       --fg: rgb(24, 54, 107);
       --fg-muted: #4F74B5;
       --accent: #4F74B5;
+      --toggle-bg: #FAFFEF;
+      --toggle-border: #4F74B5;
+      --toggle-inactive: #4F74B5;
     }}
 
     @media (prefers-color-scheme: dark) {{
@@ -83,6 +86,9 @@ def build():
         --bg: #0f1f3d;
         --fg: #FAFFEF;
         --fg-muted: rgba(250, 255, 239, 0.6);
+        --toggle-bg: #0f1f3d;
+        --toggle-border: rgba(160, 185, 230, 0.45);
+        --toggle-inactive: #FAFFEF;
       }}
     }}
 
@@ -90,6 +96,9 @@ def build():
       --bg: #0f1f3d;
       --fg: #FAFFEF;
       --fg-muted: rgba(250, 255, 239, 0.6);
+      --toggle-bg: #0f1f3d;
+      --toggle-border: rgba(160, 185, 230, 0.45);
+      --toggle-inactive: #FAFFEF;
     }}
 
     body {{
@@ -237,8 +246,9 @@ def build():
       bottom: 0.75rem;
       display: flex;
       align-items: center;
-      background: #FAFFEF;
-      border: 1.5px solid #4F74B5;
+      background: var(--toggle-bg);
+      border: 1.5px solid var(--toggle-border);
+      transition: background 0.5s ease-in-out, border-color 0.5s ease-in-out;
       border-radius: 999px;
       padding: 3px;
       gap: 2px;
@@ -250,7 +260,7 @@ def build():
     #theme-toggle span {{
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
-      color: #4F74B5;
+      color: var(--toggle-inactive);
       transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
       user-select: none;
     }}
