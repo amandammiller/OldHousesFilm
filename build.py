@@ -45,12 +45,12 @@ def build():
             )
 
     side_nav_buttons = '\n'.join(
-        f'    <button data-filter="{name}">{name.lower()}</button>'
+        f'    <button data-filter="{name}">{name}</button>'
         for name in location_names
     )
 
     dropdown_options = '\n'.join(
-        f'        <option value="{name}">{name.lower()}</option>'
+        f'        <option value="{name}">{name}</option>'
         for name in location_names
     )
 
@@ -242,7 +242,7 @@ def build():
 <body>
 
   <nav class="side-nav" aria-label="Filter by location">
-    <button class="active" data-filter="all">all</button>
+    <button class="active" data-filter="all">All locations</button>
 {side_nav_buttons}
   </nav>
 
@@ -253,7 +253,7 @@ def build():
 
   <div class="mobile-nav">
     <select id="location-select" aria-label="Filter by location">
-      <option value="all">all locations</option>
+      <option value="all">All locations</option>
 {dropdown_options}
     </select>
   </div>
