@@ -102,7 +102,7 @@ def build():
     }}
 
     header {{
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       text-align: center;
     }}
 
@@ -123,8 +123,9 @@ def build():
     /* ── Mobile/tablet dropdown ── */
     .mobile-nav {{
       display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
     }}
 
     .mobile-nav select {{
