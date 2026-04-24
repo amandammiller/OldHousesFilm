@@ -96,22 +96,29 @@
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      border: none;
-      background: var(--toggle-bg);
-      color: var(--fg);
-      font-size: 1.1rem;
-      cursor: pointer;
       display: flex;
       align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
+      background: var(--toggle-bg);
+      border: 1.5px solid var(--fg-muted);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
     }
 
-    #theme-toggle:hover {
-      background: var(--toggle-hover);
+    #theme-toggle span {
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      color: var(--fg-muted);
+      transition: background 0.2s, color 0.2s;
+      user-select: none;
+    }
+
+    #theme-toggle span.active {
+      background: var(--fg);
+      color: var(--bg);
     }
   </style>
 </head>
@@ -174,7 +181,7 @@
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
     <figure class="landscape">
-      <img src="Images/Nantucket%2C%20Massachusetts/00950014-2.jpg" alt="Nantucket, Massachusetts" loading="lazy">
+      <img src="Images/Nantucket%2C%20Massachusetts/00950014-3.jpg" alt="Nantucket, Massachusetts" loading="lazy">
       <figcaption>Nantucket, Massachusetts</figcaption>
     </figure>
     <figure class="portrait">
@@ -227,12 +234,15 @@
     </figure>
   </main>
 
-  <button id="theme-toggle" aria-label="Toggle dark mode"></button>
+  <div id="theme-toggle" role="group" aria-label="Color theme">
+    <span id="opt-light">Light</span>
+    <span id="opt-dark">Dark</span>
+  </div>
 
   <script>
     const root = document.documentElement;
-    const btn = document.getElementById('theme-toggle');
-    const ICONS = { light: '☀️', dark: '🌙' };
+    const optLight = document.getElementById('opt-light');
+    const optDark = document.getElementById('opt-dark');
 
     function isDark() {
       if (root.dataset.theme) return root.dataset.theme === 'dark';
@@ -241,19 +251,16 @@
 
     function applyTheme(dark) {
       root.dataset.theme = dark ? 'dark' : 'light';
-      btn.textContent = dark ? ICONS.light : ICONS.dark;
+      optLight.classList.toggle('active', !dark);
+      optDark.classList.toggle('active', dark);
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
 
-    // Restore saved preference
     const saved = localStorage.getItem('theme');
-    if (saved) {
-      applyTheme(saved === 'dark');
-    } else {
-      btn.textContent = isDark() ? ICONS.light : ICONS.dark;
-    }
+    applyTheme(saved ? saved === 'dark' : isDark());
 
-    btn.addEventListener('click', () => applyTheme(!isDark()));
+    optLight.addEventListener('click', () => applyTheme(false));
+    optDark.addEventListener('click', () => applyTheme(true));
   </script>
 </body>
 </html>
