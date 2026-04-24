@@ -87,7 +87,7 @@ def build():
         --fg: #FAFFEF;
         --fg-muted: rgba(250, 255, 239, 0.6);
         --toggle-bg: #0f1f3d;
-        --toggle-border: rgba(160, 185, 230, 0.7);
+        --toggle-border: #4F74B5;
         --toggle-inactive: #FAFFEF;
       }}
     }}
@@ -97,7 +97,7 @@ def build():
       --fg: #FAFFEF;
       --fg-muted: rgba(250, 255, 239, 0.6);
       --toggle-bg: #0f1f3d;
-      --toggle-border: rgba(160, 185, 230, 0.7);
+      --toggle-border: #4F74B5;
       --toggle-inactive: #FAFFEF;
     }}
 
