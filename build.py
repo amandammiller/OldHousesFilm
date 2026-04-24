@@ -36,6 +36,9 @@ def build():
             src = f"{IMAGES_DIR}/{urllib.parse.quote(location)}/{urllib.parse.quote(photo)}"
             with Image.open(path) as img:
                 w, h = img.size
+                exif_orientation = img.getexif().get(274, 1)
+            if exif_orientation in (5, 6, 7, 8):
+                w, h = h, w  # rotated 90° — swap to get display dimensions
             orientation = "portrait" if h > w else "landscape"
             photo_items.append(
                 f'    <figure class="{orientation}" data-location="{location}">\n'
