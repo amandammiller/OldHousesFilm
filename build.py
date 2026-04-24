@@ -203,7 +203,7 @@ def build():
       display: flex;
       flex-direction: column;
       gap: 2.5rem;
-      transition: opacity 0.25s ease-in-out;
+      transition: opacity 0.15s ease-in-out;
     }}
 
     .gallery.fading {{ opacity: 0; }}
@@ -325,7 +325,7 @@ def build():
         }});
         gallery.classList.remove('fading');
         window.scrollTo({{ top: 0, behavior: 'smooth' }});
-      }}, 250);
+      }}, 150);
     }}
 
     // Side nav
