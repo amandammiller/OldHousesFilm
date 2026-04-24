@@ -100,7 +100,8 @@ def build():
     header h1 {{
       font-family: 'EB Garamond', Garamond, serif;
       font-size: 2.4rem;
-      font-weight: 500;
+      font-weight: 300;
+      text-transform: lowercase;
       margin-bottom: 0.4rem;
     }}
 
@@ -172,7 +173,7 @@ def build():
 <body>
   <header>
     <h1>Old Houses on Film</h1>
-    <p>Taken by Amanda Miller &bull; Minolta X-700</p>
+    <p>photos by Amanda Miller ✳ Minolta X-700</p>
   </header>
   <main class="gallery">
 {chr(10).join(photo_items)}
