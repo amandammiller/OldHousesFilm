@@ -199,7 +199,8 @@ def build():
     @media (max-width: 1334px) {{
       body {{ padding-left: 1.375rem; padding-right: 1.375rem; }}
       .mobile-nav select {{ height: 44px; }}
-      #theme-toggle button {{ height: 38px; }}
+      #theme-toggle {{ height: 44px; }}
+      #theme-toggle button {{ height: 100%; }}
     }}
 
     @media (min-width: 1335px) {{
