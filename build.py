@@ -159,13 +159,13 @@ def build():
     #theme-toggle span {{
       padding: 0.3rem 0.85rem;
       border-radius: 999px;
-      color: rgb(24, 54, 107);
+      color: #4F74B5;
       transition: background 0.2s, color 0.2s;
       user-select: none;
     }}
 
     #theme-toggle span.active {{
-      background: rgb(24, 54, 107);
+      background: #4F74B5;
       color: #FAFFEF;
     }}
   </style>
