@@ -230,7 +230,7 @@ def build():
     }}
 
     @media (max-width: 1334px) {{
-      body {{ padding-left: 1.375rem; padding-right: 1.375rem; }}
+      body {{ padding-left: 1.875rem; padding-right: 1.875rem; }}
       .mobile-nav select {{ height: 36px; }}
     }}
 
@@ -259,7 +259,7 @@ def build():
     .gallery {{
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 4rem;
       transition: opacity 0.15s ease-in-out;
     }}
 
