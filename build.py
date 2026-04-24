@@ -173,8 +173,7 @@ def build():
       border: none;
       color: var(--fg-muted);
       cursor: pointer;
-      padding: 0.4rem 0.7rem;
-      min-height: 44px;
+      padding: 0.25rem 0.7rem;
       border-radius: 999px;
       text-align: left;
       white-space: nowrap;
