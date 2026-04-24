@@ -124,8 +124,8 @@ def build():
     .mobile-nav {{
       display: flex;
       position: fixed;
-      bottom: 1.5rem;
-      left: 1.5rem;
+      bottom: 0.75rem;
+      left: 0.75rem;
     }}
 
     .mobile-nav select {{
@@ -182,6 +182,20 @@ def build():
       .mobile-nav {{ display: none; }}
     }}
 
+    @media (max-width: 480px) {{
+      .mobile-nav {{
+        bottom: 3.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }}
+      #theme-toggle {{
+        bottom: 0.75rem;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }}
+    }}
+
     /* ── Gallery ── */
     .gallery {{
       display: flex;
@@ -215,8 +229,8 @@ def build():
     /* ── Theme toggle ── */
     #theme-toggle {{
       position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
+      bottom: 0.75rem;
+      right: 0.75rem;
       display: flex;
       align-items: center;
       background: #FAFFEF;
