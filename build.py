@@ -301,6 +301,7 @@ def build():
       figures.forEach(fig => {{
         fig.hidden = value !== 'all' && fig.dataset.location !== value;
       }});
+      window.scrollTo({{ top: 0, behavior: 'smooth' }});
     }}
 
     // Side nav
