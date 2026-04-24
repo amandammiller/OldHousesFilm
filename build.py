@@ -87,7 +87,7 @@ def build():
         --fg: #FAFFEF;
         --fg-muted: rgba(250, 255, 239, 0.6);
         --toggle-bg: #0f1f3d;
-        --toggle-border: rgba(160, 185, 230, 0.45);
+        --toggle-border: rgba(160, 185, 230, 0.7);
         --toggle-inactive: #FAFFEF;
       }}
     }}
@@ -97,7 +97,7 @@ def build():
       --fg: #FAFFEF;
       --fg-muted: rgba(250, 255, 239, 0.6);
       --toggle-bg: #0f1f3d;
-      --toggle-border: rgba(160, 185, 230, 0.45);
+      --toggle-border: rgba(160, 185, 230, 0.7);
       --toggle-inactive: #FAFFEF;
     }}
 
@@ -144,7 +144,8 @@ def build():
       background: var(--bg);
       border: 1.5px solid var(--accent);
       border-radius: 999px;
-      padding: 0.4rem 2.2rem 0.4rem 1.1rem;
+      height: 34px;
+      padding: 0 2.2rem 0 1.1rem;
       appearance: none;
       -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234F74B5' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -172,7 +173,8 @@ def build():
       border: none;
       color: var(--fg-muted);
       cursor: pointer;
-      padding: 0.25rem 0.7rem;
+      padding: 0.4rem 0.7rem;
+      min-height: 44px;
       border-radius: 999px;
       text-align: left;
       white-space: nowrap;
@@ -180,6 +182,11 @@ def build():
     }}
 
     .side-nav button:hover {{ color: var(--fg); }}
+
+    .side-nav button:focus-visible {{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }}
 
     .side-nav button.active {{
       background: var(--accent);
@@ -193,6 +200,10 @@ def build():
     @media (min-width: 1335px) {{
       .side-nav {{ display: flex; }}
       .mobile-nav {{ display: none; }}
+    }}
+
+    @media (prefers-reduced-motion: reduce) {{
+      body, .gallery, #theme-toggle, #theme-toggle button {{ transition: none; }}
     }}
 
     @media (max-width: 379px) {{
@@ -252,20 +263,30 @@ def build():
       border-radius: 999px;
       padding: 3px;
       gap: 2px;
-      cursor: pointer;
       font-family: 'Inter', sans-serif;
       font-size: 0.8rem;
     }}
 
-    #theme-toggle span {{
-      padding: 0.3rem 0.85rem;
+    #theme-toggle button {{
+      padding: 0 0.85rem;
+      height: 28px;
       border-radius: 999px;
+      border: none;
+      background: none;
       color: var(--toggle-inactive);
+      font-family: inherit;
+      font-size: inherit;
+      cursor: pointer;
       transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
       user-select: none;
     }}
 
-    #theme-toggle span.active {{
+    #theme-toggle button:focus-visible {{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }}
+
+    #theme-toggle button.active {{
       background: #4F74B5;
       color: #FAFFEF;
     }}
@@ -295,8 +316,8 @@ def build():
   </main>
 
   <div id="theme-toggle" role="group" aria-label="Color theme">
-    <span id="opt-light">Light</span>
-    <span id="opt-dark">Dark</span>
+    <button id="opt-light" aria-pressed="false">Light</button>
+    <button id="opt-dark" aria-pressed="false">Dark</button>
   </div>
 
   <script>
@@ -314,11 +335,18 @@ def build():
       root.dataset.theme = dark ? 'dark' : 'light';
       optLight.classList.toggle('active', !dark);
       optDark.classList.toggle('active', dark);
+      optLight.setAttribute('aria-pressed', String(!dark));
+      optDark.setAttribute('aria-pressed', String(dark));
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }}
 
     const saved = localStorage.getItem('theme');
     applyTheme(saved ? saved === 'dark' : isDark());
+
+    // Initialise aria-pressed on side nav
+    document.querySelectorAll('.side-nav button').forEach(btn => {{
+      btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+    }});
 
     optLight.addEventListener('click', () => applyTheme(false));
     optDark.addEventListener('click',  () => applyTheme(true));
@@ -341,8 +369,12 @@ def build():
     // Side nav
     document.querySelectorAll('.side-nav button').forEach(btn => {{
       btn.addEventListener('click', () => {{
-        document.querySelectorAll('.side-nav button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.side-nav button').forEach(b => {{
+          b.classList.remove('active');
+          b.setAttribute('aria-pressed', 'false');
+        }});
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         document.getElementById('location-select').value = btn.dataset.filter;
         filter(btn.dataset.filter);
       }});
