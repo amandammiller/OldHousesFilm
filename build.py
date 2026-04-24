@@ -144,8 +144,8 @@ def build():
     }}
 
     header {{
-      margin-top: 4rem;
-      margin-bottom: 4rem;
+      margin-top: 5rem;
+      margin-bottom: 5rem;
       text-align: center;
     }}
 
